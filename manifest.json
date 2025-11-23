@@ -1,0 +1,56 @@
+{
+  "name": "SlotScope – Fairness Inspector",
+  "description": "Inspect backend RTP, volatility, and live hotness of HTML5 slot iframes you own. Dormant until slot iframes are detected and you consent.",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "action": {
+    "default_title": "SlotScope – Fairness Inspector",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "storage",
+    "notifications",
+    "webRequest",
+    "webRequestBlocking"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "bridge.js",
+        "dashboard.html",
+        "dashboard.css",
+        "dashboard.js",
+        "icons/16.png",
+        "icons/32.png",
+        "icons/48.png",
+        "icons/128.png"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "options_page": "options.html"
+}
