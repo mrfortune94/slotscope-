@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SlotScope Options</title>
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    margin: 10px;
+    background: #121212;
+    color: #ddd;
+  }
+  h1 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  section {
+    background: #222;
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+  }
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  li {
+    margin: 4px 0;
+  }
+  button.remove-btn {
+    margin-left: 12px;
+    color: #f66;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  button.remove-btn:hover {
+    color: #faa;
+  }
+  #clear-all {
+    background: #f33;
+    border: none;
+    padding: 8px 16px;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  #clear-all:hover {
+    background: #d22;
+  }
+  small {
+    display: block;
+    margin-top: 8px;
+    color: #888;
+  }
+</style>
+</head>
+<body>
+<h1>SlotScope Options</h1>
+
+<section id="whitelist-section">
+  <h2>Whitelisted Domains</h2>
+  <ul id="whitelist-list">Loading...</ul>
+</section>
+
+<section id="blacklist-section">
+  <h2>Blacklisted Domains</h2>
+  <ul id="blacklist-list">Loading...</ul>
+</section>
+
+<section>
+  <button id="clear-all">Clear All Stored Preferences</button>
+  <small>Clears whitelist and blacklist data.</small>
+</section>
+
+<section>
+  <h2>Usage Notes</h2>
+  <p>Domains you whitelist here will automatically enable SlotScope's inspection and split-screen view whenever a qualifying slot iframe is detected on those domains without further prompt.</p>
+  <p>Blacklisted domains will never show notifications or activate inspection.</p>
+  <p>Use this page to manage domains and reset permissions if needed.</p>
+</section>
+
+<script>
+// Utility to update domain lists
+function renderDomainList(element, domains, type) {
+  element.innerHTML = "";
+  if (!domains || domains.length === 0) {
+    element.textContent = `No ${type} domains set.`;
+    return;
+  }
+  domains.forEach(domain => {
+    const li = document.createElement("li");
+    li.textContent = domain;
+    const btn = document.createElement("button");
+    btn.className = "remove-btn";
+    btn.textContent = "✕";
+    btn.title = `Remove ${domain} from ${type}`;
+    btn.addEventListener("click", () => {
+      removeDomain(domain, type);
+    });
+    li.appendChild(btn);
+    element.appendChild(li);
+  });
+}
+
+async function getStorage(key) {
+  return new Promise(resolve => {
+    chrome.storage.sync.get(key, items => {
+      resolve(items[key] || []);
+    });
+  });
+}
+
+async function setStorage(key, value) {
+  return new Promise(resolve => {
+    chrome.storage.sync.set({ [key]: value }, () => resolve());
+  });
+}
+
+async function removeDomain(domain, type) {
+  const key = type === "whitelisted" ? "slotscope_whitelist" : "slotscope_blacklist";
+  let domains = await getStorage(key);
+  domains = domains.filter(d => d !== domain);
+  await setStorage(key, domains);
+  loadDomains();
+}
+
+async function clearAll() {
+  await setStorage("slotscope_whitelist", []);
+  await setStorage("slotscope_blacklist", []);
+  loadDomains();
+}
+
+async function loadDomains() {
+  const whitelist = await getStorage("slotscope_whitelist");
+  const blacklist = await getStorage("slotscope_blacklist");
+
+  renderDomainList(document.getElementById("whitelist-list"), whitelist, "whitelisted");
+  renderDomainList(document.getElementById("blacklist-list"), blacklist, "blacklisted");
+}
+
+document.getElementById("clear-all").addEventListener("click", () => {
+  if (confirm("Are you sure you want to clear ALL stored preferences? This cannot be undone.")) {
+    clearAll();
+  }
+});
+
+// Initialize on page load
+loadDomains();
+</script>
+</body>
+</html>
