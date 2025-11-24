@@ -1,0 +1,98 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: #eee;
+  font-family: system-ui, sans-serif;
+  font-size: 12px;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+header {
+  padding: 8px 10px;
+  background: #111;
+  border-bottom: 1px solid #222;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.subtitle {
+  margin: 2px 0 0;
+  font-size: 11px;
+  color: #aaa;
+}
+
+#summary {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 6px 8px;
+  border-bottom: 1px solid #222;
+  background: #090909;
+}
+
+.metric {
+  margin-right: 16px;
+  margin-bottom: 4px;
+}
+
+.metric label {
+  display: block;
+  font-size: 10px;
+  color: #888;
+}
+
+.metric span {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+#gauge-section {
+  padding: 6px 8px;
+  border-bottom: 1px solid #222;
+}
+
+#gauge {
+  width: 100%;
+  height: 80px;
+}
+
+#spins {
+  flex: 1 1 auto;
+  padding: 6px 8px;
+  overflow: auto;
+}
+
+#spins h2, #raw-config h2 {
+  margin: 0 0 4px;
+  font-size: 12px;
+}
+
+#spins-list {
+  font-family: monospace;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+#raw-config {
+  padding: 6px 8px;
+  border-top: 1px solid #222;
+  background: #050505;
+  max-height: 30%;
+  overflow: auto;
+}
+
+#raw-config-pre {
+  margin: 0;
+  font-family: monospace;
+  font-size: 11px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
