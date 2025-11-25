@@ -33,8 +33,10 @@ jobs:
         uses: android-actions/setup-android@v3
         with:
           packages: |
-            platforms;android-34
-            build-tools;34.0.0
+            cmdline-tools;latest
+            platform-tools
+            platforms;android-33
+            build-tools;33.0.2
 
       - name: Build debug APK
         working-directory: android-app
