@@ -3,20 +3,13 @@ set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-if ! command -v base64 >/dev/null 2>&1; then
-  echo "The 'base64' utility is required to rehydrate binary assets." >&2
-  exit 1
-fi
-
 restore() {
   local src="$1"
   local dest="$2"
   local dest_dir
   dest_dir=$(dirname "$dest")
   mkdir -p "$dest_dir"
-  if [ ! -f "$dest" ]; then
-    base64 --decode "$src" > "$dest"
-  fi
+  base64 --decode "$src" > "$dest"
 }
 
 restore "$repo_root/android-app/gradle/wrapper/gradle-wrapper.jar.b64" "$repo_root/android-app/gradle/wrapper/gradle-wrapper.jar"

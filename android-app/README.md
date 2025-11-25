@@ -12,7 +12,6 @@ This module wraps the SlotScope dashboard inside an Android WebView so you can s
    ```bash
    ./scripts/restore-binaries.sh
    ```
-   The Gradle wrapper will also auto-rehydrate its JAR from `gradle-wrapper.jar.b64` if you forget this step.
 2. Install Java 17. On Ubuntu you can run `sudo apt-get install openjdk-17-jdk`.
 3. Install the Android SDK and required platform/build-tools. A helper script in this repo will
    fetch command line tools and install API 34 components under `$HOME/android-sdk`:

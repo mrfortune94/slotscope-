@@ -112,19 +112,7 @@ case "$( uname )" in                #(
   NONSTOP* )        nonstop=true ;;
 esac
 
-# Rehydrate the wrapper JAR from its base64 source if it isn't present.
-WRAPPER_JAR=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
-WRAPPER_B64=${WRAPPER_JAR}.b64
-if [ ! -f "$WRAPPER_JAR" ] && [ -f "$WRAPPER_B64" ]; then
-    if command -v base64 >/dev/null 2>&1; then
-        mkdir -p "$( dirname "$WRAPPER_JAR" )"
-        base64 --decode "$WRAPPER_B64" > "$WRAPPER_JAR"
-    else
-        die "Gradle wrapper JAR is missing and 'base64' is unavailable to restore it."
-    fi
-fi
-
-CLASSPATH=$WRAPPER_JAR
+CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
 
 
 # Determine the Java command to use to start the JVM.
