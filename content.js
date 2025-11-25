@@ -18,6 +18,8 @@ const GAME_PATTERNS = [
   "/html5-game/"
 ];
 
+const DASHBOARD_ORIGIN = new URL(chrome.runtime.getURL("/")).origin;
+
 let inspectorEnabled = false;
 let trackedIframe = null;
 let hotnessState = {
@@ -385,6 +387,6 @@ function pushStateToDashboard() {
         rawConfig: hotnessState.rawConfig
       }
     },
-    window.location.origin
+    DASHBOARD_ORIGIN
   );
 }

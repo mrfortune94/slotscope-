@@ -1,0 +1,18 @@
+# Node/extension artifacts
+node_modules/
+
+# Android build artifacts
+android-app/.gradle/
+android-app/build/
+android-app/app/build/
+android-app/local.properties
+*.apk
+*.aab
+
+# IDE files
+.idea/
+*.iml
+
+# Rehydrated binaries
+android-app/gradle/wrapper/gradle-wrapper.jar
+icons/*.png

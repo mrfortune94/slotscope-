@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SlotScope Control Center</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 12px;
+      width: 320px;
+      background: linear-gradient(135deg, #0f121f 0%, #0c0f1a 60%, #0a0c14 100%);
+      color: #e6e6e6;
+      font-family: "Inter", system-ui, sans-serif;
+    }
+    h1 {
+      margin: 0 0 6px;
+      font-size: 16px;
+      letter-spacing: 0.3px;
+    }
+    p {
+      margin: 0 0 12px;
+      color: #a5adc6;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 6px;
+    }
+    .pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      background: rgba(255,255,255,0.06);
+      color: #9acbff;
+    }
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 10px 12px;
+      width: 100%;
+      color: #0b0e1a;
+      background: linear-gradient(120deg, #62d8ff 0%, #4bc3ff 40%, #ffa84b 100%);
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+    button.secondary {
+      background: rgba(255,255,255,0.08);
+      color: #dbe7ff;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    }
+    .stack { display: flex; gap: 8px; }
+    .stack button { flex: 1; }
+    .status {
+      font-size: 12px;
+      color: #c9d4ff;
+      margin-top: 4px;
+    }
+    .meta {
+      font-size: 11px;
+      color: #8b92a8;
+    }
+    ul { margin: 8px 0 0; padding-left: 16px; color: #a5adc6; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>SlotScope</h1>
+  <p>Whitelabel fairness inspector for HTML5 slots. Enable on domains you own and stream live backend metrics.</p>
+
+  <div class="card">
+    <div class="row">
+      <div>
+        <div class="pill" id="domain-pill">Loading domain…</div>
+        <div class="status" id="status-text">Fetching stored preferences…</div>
+      </div>
+      <div class="meta" id="active-indicator">–</div>
+    </div>
+    <div class="stack" style="margin-top:10px;">
+      <button id="whitelist-btn">Enable &amp; whitelist</button>
+      <button class="secondary" id="blacklist-btn">Ignore here</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="row">
+      <div>
+        <div class="status">Tools</div>
+        <div class="meta">Manage domains, reset prompts, and review data policy.</div>
+      </div>
+    </div>
+    <div class="stack" style="margin-top:10px;">
+      <button class="secondary" id="open-options">Open preferences</button>
+      <button class="secondary" id="clear-suppress">Reset reminder</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="status">How it works</div>
+    <ul>
+      <li>When enabled, SlotScope injects a split-screen dashboard beside your page.</li>
+      <li>We hook fetch/XHR to capture backend RTP + volatility payloads you own.</li>
+      <li>Spin telemetry is tracked locally to gauge hot vs. cold streaks.</li>
+    </ul>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
